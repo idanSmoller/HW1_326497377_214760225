@@ -7,6 +7,4 @@
 /runs
 /small_data.yaml
 /train_model copy.py
-/trained_model_1.pt
-/trained_model_2.pt
 /yolo11n.pt
