@@ -39,7 +39,7 @@ def video_predict(model_path, video_path, annotation_save_path=None):
             break
 
         # Run inference (returns results)
-        results = model.predict(frame, verbose=False)
+        results = model.predict(frame, verbose=False, iou=0.4)
 
         # results is a list, get the first (and usually only) prediction
         result = results[0]
