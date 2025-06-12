@@ -4,7 +4,7 @@ import argparse
 from pathlib import Path
 
 
-def predict(model_path, image_path, true_labels_path=None):
+def predict(model_path, image_path, annotation_save_path, true_labels_path=None):
     """
     Predicts objects in an image using a trained YOLO model and annotates the image with predictions.
     Args:
@@ -58,19 +58,25 @@ def predict(model_path, image_path, true_labels_path=None):
                         cv2.FONT_HERSHEY_SIMPLEX, fontScale=4, color=(255, 0, 0), thickness=3)
 
     # Save the annotated image
-    cv2.imwrite(f'annotated_{image_name}', annotated_img)
+    if annotation_save_path:
+        cv2.imwrite(annotation_save_path, annotated_img)
+    else:
+        # If no save path is provided, save with a default name
+        cv2.imwrite(f'annotated_{image_name}', annotated_img)
 
 
 def main():
     parser = argparse.ArgumentParser(description="Predict objects in an image using a trained YOLO model.")
     parser.add_argument('model_path', type=str, help='Path to the trained YOLO model.')
     parser.add_argument('image_path', type=str, help='Path to the image file for prediction.')
+    parser.add_argument('--annotated_image_path', type=str, default=None, 
+                        help='Path to save the annotated image. If not provided, saves as "annotated_<image_name>".')
     parser.add_argument('--true_labels_path', type=str, default=None, 
                         help='Path to the file containing true labels in YOLO format (optional).')
 
     args = parser.parse_args()
 
-    predict(args.model_path, args.image_path, args.true_labels_path)
+    predict(args.model_path, args.image_path, args.annotated_image_path, args.true_labels_path)
 
 
 if __name__ == "__main__":

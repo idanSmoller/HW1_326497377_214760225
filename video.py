@@ -5,7 +5,7 @@ from pathlib import Path
 from tqdm import tqdm
 
 
-def video_predict(model_path, video_path):
+def video_predict(model_path, video_path, annotation_save_path=None):
     """
     Predicts objects in a video using a trained YOLO model and annotates the video with predictions.
     Args:
@@ -29,7 +29,8 @@ def video_predict(model_path, video_path):
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    out = cv2.VideoWriter(f'annotated_{video_name}', fourcc, fps, (width, height))
+    save_path = annotation_save_path if annotation_save_path else f'annotated_{video_name}'
+    out = cv2.VideoWriter(save_path, fourcc, fps, (width, height))
     
     # Process each frame
     for _ in tqdm(range(frames_num), desc=f"Processing {video_name}"):
@@ -57,10 +58,12 @@ def main():
     parser = argparse.ArgumentParser(description="Predict objects in a video using a trained YOLO model.")
     parser.add_argument("model_path", type=str, help="Path to the trained YOLO model.")
     parser.add_argument("video_path", type=str, help="Path to the video file for prediction.")
+    parser.add_argument("--annotation_save_path", type=str, default=None,
+                        help="Path to save the annotated video. If not provided, saves as 'annotated_<video_name>'.")
 
     args = parser.parse_args()
 
-    video_predict(args.model_path, args.video_path)
+    video_predict(args.model_path, args.video_path, args.annotation_save_path)
 
 
 if __name__ == "__main__":
