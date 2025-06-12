@@ -1,0 +1,12 @@
+/annotated_surg_1.mp4
+/backup
+/big_data.yaml
+/big_dataset
+/ood_data.yaml
+/ood_dataset
+/runs
+/small_data.yaml
+/train_model copy.py
+/trained_model_1.pt
+/trained_model_2.pt
+/yolo11n.pt

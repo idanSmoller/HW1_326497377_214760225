@@ -1,0 +1,15 @@
+# hyp.yaml - hyperparameters including augmentations for surgical tool detection
+
+# Augmentation parameters
+flipud: 0.0          # vertical flip probability - 0 for surgical tools
+fliplr: 0.5          # horizontal flip probability
+hsv_h: 0.015         # image HSV-Hue augmentation (fraction)
+hsv_s: 0.8           # HSV-Saturation augmentation (fraction)
+hsv_v: 0.6           # HSV-Value augmentation (fraction)
+degrees: 15.0        # image rotation (+/- degrees)
+translate: 0.05      # image translation (fraction)
+scale: 0.1           # image scale (+/- gain)
+shear: 0.0           # shear angle, 0 to avoid unrealistic warping
+perspective: 0.0     # perspective fraction, 0 to avoid distortion
+mosaic: 0.75         # mosaic augmentation probability (1 = always on)
+mixup: 0.15          # mixup augmentation probability (0 = off)
